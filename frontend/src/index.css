@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primario: #00E5FF;
+  --color-fondo: #0A0C10;
+  --color-superficie: #141820;
+  --color-texto: #E2E8F0;
+  --color-apagado: #64748B;
+  --color-peligro: #FF3366;
+  --color-exito: #00FFAA;
+  --color-borde: #2A3140;
+
+  --fuente-encabezado: 'Space Grotesk', sans-serif;
+  --fuente-cuerpo: 'Cabinet Grotesk', sans-serif;
+  --fuente-mono: 'Fira Code', monospace;
+
+  --radio-pequeno: 4px;
+  --radio-mediano: 8px;
+  --espaciado-base: 8px;
+
+  --brillo-primario: 0 0 15px rgba(0, 229, 255, 0.2);
+  --brillo-peligro: 0 0 15px rgba(255, 51, 102, 0.3);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-cuerpo);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@layer components {
+  .tarjeta-metrica {
+    @apply bg-superficie rounded-pequeno border border-borde p-4;
+    transition: all 300ms ease-in-out;
+  }
+
+  .tarjeta-metrica:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--brillo-primario);
+  }
+
+  .nodo-efos {
+    animation: pulso-peligro 2s infinite;
+  }
+
+  .nodo-verificado {
+    animation: pulso-primario 2s infinite;
+  }
+
+  .linea-escaneo {
+    animation: escaneo 2s linear infinite;
+  }
+
+  .brillo-activado {
+    box-shadow: var(--brillo-primario);
+  }
+}
+
+@keyframes pulso-peligro {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.4); }
+  50% { box-shadow: 0 0 20px 5px rgba(255, 51, 102, 0.2); }
+}
+
+@keyframes pulso-primario {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.4); }
+  50% { box-shadow: 0 0 20px 5px rgba(0, 229, 255, 0.2); }
+}
+
+@keyframes escaneo {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes flujo-datos {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-flujo-datos {
+  animation: flujo-datos 300ms ease-out forwards;
+}
