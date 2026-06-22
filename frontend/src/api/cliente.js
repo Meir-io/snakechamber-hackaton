@@ -29,6 +29,7 @@ export const apiGrafo = {
   obtenerNodos: (filtros) => clienteApi.get('/api/grafo/nodos', { params: filtros }),
   obtenerAristas: (filtros) => clienteApi.get('/api/grafo/aristas', { params: filtros }),
   obtenerCluster: (id) => clienteApi.get(`/api/grafo/cluster/${id}`),
+  analizarGrafo: () => clienteApi.get('/analizar_grafo'),
 }
 
 export const apiEntidad = {

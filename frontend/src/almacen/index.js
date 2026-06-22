@@ -30,6 +30,24 @@ export const usarAlmacenIngesta = create((set) => ({
   eliminarArchivo: (indice) => set((estado) => ({
     archivosEnCola: estado.archivosEnCola.filter((_, i) => i !== indice),
   })),
+  actualizarEstadoArchivo: (indice, estado, progreso, resultados, errorMsg) =>
+    set((state) => {
+      const archivos = [...state.archivosEnCola]
+      if (archivos[indice]) {
+        // progreso puede ser { pct, fase, pagina, totalPaginas } o un número simple
+        const norm = typeof progreso === 'object' && progreso !== null
+          ? progreso
+          : { pct: progreso ?? archivos[indice].progreso?.pct ?? 0 }
+        archivos[indice] = {
+          ...archivos[indice],
+          estado,
+          progreso: norm,
+          resultados,
+          error: errorMsg,
+        }
+      }
+      return { archivosEnCola: archivos }
+    }),
   iniciarProcesamiento: () => set({ procesando: true, progresoActual: 0 }),
   actualizarProgreso: (progreso) => set({ progresoActual: progreso }),
   completarProcesamiento: (resultado) => set((estado) => ({
